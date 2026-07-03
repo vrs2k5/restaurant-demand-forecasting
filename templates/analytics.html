@@ -1,0 +1,296 @@
+{% extends "base.html" %}
+{% block title %}Analytics{% endblock %}
+
+{% block content %}
+
+<div class="mb-5">
+
+    <h1 class="mb-2">
+
+        Business Analytics
+
+    </h1>
+
+    <p class="text-muted">
+
+        Visualize restaurant demand patterns, promotions and customer behavior.
+
+    </p>
+
+</div>
+
+<div class="row g-4 mb-4">
+
+    <div class="col-lg-3">
+
+        <div class="analytics-card">
+
+            <small class="text-muted">
+
+                Charts
+
+            </small>
+
+            <div class="analytics-value">
+
+                4
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="analytics-card">
+
+            <small class="text-muted">
+
+                Forecast Model
+
+            </small>
+
+            <div class="analytics-value">
+
+                ML
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="analytics-card">
+
+            <small class="text-muted">
+
+                Promotion Analysis
+
+            </small>
+
+            <div class="analytics-value">
+
+                ✓
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="analytics-card">
+
+            <small class="text-muted">
+
+                Weather Impact
+
+            </small>
+
+            <div class="analytics-value">
+
+                ✓
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-lg-6">
+
+<div class="chart-card">
+
+<div class="chart-title">
+
+Monthly Demand Trend
+
+</div>
+
+<canvas id="monthlyChart"></canvas>
+
+</div>
+
+</div>
+
+<div class="col-lg-6">
+
+<div class="chart-card">
+
+<div class="chart-title">
+
+Top Selling Menu Items
+
+</div>
+
+<canvas id="itemChart"></canvas>
+
+</div>
+
+</div>
+
+<div class="col-lg-6">
+
+<div class="chart-card">
+
+<div class="chart-title">
+
+Weather Impact
+
+</div>
+
+<canvas id="weatherChart"></canvas>
+
+</div>
+
+</div>
+
+<div class="col-lg-6">
+
+<div class="chart-card">
+
+<div class="chart-title">
+
+Promotion Impact
+
+</div>
+
+<canvas id="promoChart"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+
+<script>
+
+const palette=[
+"#f4b400",
+"#5cc8ff",
+"#2db66d",
+"#ff6b6b",
+"#b084f5",
+"#6c757d"
+];
+
+Chart.defaults.color="#eef3f7";
+
+Chart.defaults.borderColor="rgba(255,255,255,.08)";
+
+new Chart(document.getElementById("monthlyChart"),{
+
+type:"line",
+
+data:{
+
+labels:{{ months|tojson }},
+
+datasets:[{
+
+label:"Demand",
+
+data:{{ monthly|tojson }},
+
+borderColor:palette[0],
+
+backgroundColor:"rgba(244,180,0,.15)",
+
+fill:true,
+
+tension:.35
+
+}]
+
+}
+
+});
+
+new Chart(document.getElementById("itemChart"),{
+
+type:"bar",
+
+data:{
+
+labels:{{ items|tojson }},
+
+datasets:[{
+
+data:{{ item_sales|tojson }},
+
+backgroundColor:palette[1]
+
+}]
+
+},
+
+options:{
+
+indexAxis:"y",
+
+plugins:{legend:{display:false}}
+
+}
+
+});
+
+new Chart(document.getElementById("weatherChart"),{
+
+type:"doughnut",
+
+data:{
+
+labels:{{ weather_labels|tojson }},
+
+datasets:[{
+
+data:{{ weather_values|tojson }},
+
+backgroundColor:palette
+
+}]
+
+}
+
+});
+
+new Chart(document.getElementById("promoChart"),{
+
+type:"bar",
+
+data:{
+
+labels:{{ promo_labels|tojson }},
+
+datasets:[{
+
+data:{{ promo_values|tojson }},
+
+backgroundColor:[palette[3],palette[2]]
+
+}]
+
+},
+
+options:
+{
+
+plugins:{legend:{display:false}}
+
+}
+
+});
+
+</script>
+
+{% endblock %}

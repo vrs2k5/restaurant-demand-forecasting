@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% block title %}Model Performance{% endblock %}
+
+{% block content %}
+
+<div class="mb-5">
+
+    <h1 class="mb-2">
+        Machine Learning Performance
+    </h1>
+
+    <p class="text-muted">
+        Compare forecasting models and understand which algorithm performs best on historical restaurant demand.
+    </p>
+
+</div>
+
+<div class="row g-4 mb-5">
+
+    <div class="col-lg-4">
+
+        <div class="model-best h-100">
+
+            <h3>
+                🏆 Best Model
+            </h3>
+
+            <div class="score mt-3">
+
+                {{ best_model.replace('_',' ')|title }}
+
+            </div>
+
+            <hr>
+
+            <p class="mb-0">
+
+                This model achieved the highest validation performance and is used for inventory recommendations.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-8">
+
+        <div class="row g-3">
+
+            {% for name,m in metrics.items() %}
+
+            <div class="col-md-6">
+
+                <div class="prediction-card">
+
+                    <h5>
+
+                        {{ name.replace('_',' ')|title }}
+
+                    </h5>
+
+                    <hr>
+
+                    <p>
+
+                        <strong>R²</strong>
+
+                        <span class="float-end">
+
+                            {{ "%.4f"|format(m.r2) }}
+
+                        </span>
+
+                    </p>
+
+                    <p>
+
+                        <strong>MAE</strong>
+
+                        <span class="float-end">
+
+                            {{ "%.2f"|format(m.mae) }}
+
+                        </span>
+
+                    </p>
+
+                    <p class="mb-0">
+
+                        <strong>RMSE</strong>
+
+                        <span class="float-end">
+
+                            {{ "%.2f"|format(m.rmse) }}
+
+                        </span>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% if feature_importance %}
+
+<div class="card">
+
+<div class="card-header">
+
+<i class="bi bi-bar-chart-fill"></i>
+
+Feature Importance
+
+</div>
+
+<div class="card-body">
+
+<canvas id="importanceChart"></canvas>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+
+<script>
+
+Chart.defaults.color="#eef3f7";
+
+Chart.defaults.borderColor="rgba(255,255,255,.08)";
+
+new Chart(
+
+document.getElementById("importanceChart"),
+
+{
+
+type:"bar",
+
+data:{
+
+labels:{{ feature_importance.features|tojson }},
+
+datasets:[{
+
+label:"Importance",
+
+data:{{ feature_importance.importances|tojson }},
+
+backgroundColor:"#f4b400"
+
+}]
+
+},
+
+options:{
+
+indexAxis:"y",
+
+plugins:{
+
+legend:{
+
+display:false
+
+}
+
+}
+
+}
+
+}
+
+);
+
+</script>
+
+{% endif %}
+
+{% endblock %}

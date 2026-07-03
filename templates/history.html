@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% block title %}Prediction History{% endblock %}
+
+{% block content %}
+
+<div class="mb-5">
+
+    <h1 class="mb-2">
+        Prediction History
+    </h1>
+
+    <p class="text-muted">
+        Review previously generated restaurant demand forecasts.
+    </p>
+
+</div>
+
+<div class="row mb-4">
+
+    <div class="col-lg-8">
+
+        <input
+            type="text"
+            id="historySearch"
+            class="form-control"
+            placeholder="Search by restaurant, menu item or weather...">
+
+    </div>
+
+    <div class="col-lg-4 text-end">
+
+        <span class="badge badge-best">
+
+            {{ predictions|length }}
+
+            Records
+
+        </span>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+<div class="card-header">
+
+<i class="bi bi-clock-history"></i>
+
+Forecast Log
+
+</div>
+
+<div class="card-body">
+
+{% if predictions %}
+
+<div class="table-responsive">
+
+<table
+id="historyTable"
+class="table table-hover align-middle">
+
+<thead>
+
+<tr>
+
+<th>Date</th>
+
+<th>Restaurant</th>
+
+<th>Menu Item</th>
+
+<th>Weather</th>
+
+<th>Best Prediction</th>
+
+<th>Recorded</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for p in predictions %}
+
+<tr>
+
+<td>
+
+{{ p.date }}
+
+</td>
+
+<td>
+
+Restaurant #{{ p.restaurant_id }}
+
+</td>
+
+<td>
+
+<strong>
+
+{{ p.menu_item_name }}
+
+</strong>
+
+</td>
+
+<td>
+
+{{ p.weather_condition }}
+
+</td>
+
+<td>
+
+<span class="badge badge-best">
+
+{{ p.lightgbm_prediction }}
+
+</span>
+
+</td>
+
+<td>
+
+<small>
+
+{{ p.created_at }}
+
+</small>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% else %}
+
+<div class="alert alert-success">
+
+No prediction history found.
+
+Generate your first forecast to populate this page.
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+<script>
+
+const search=document.getElementById("historySearch");
+
+search.addEventListener("keyup",function(){
+
+const filter=this.value.toLowerCase();
+
+const rows=document.querySelectorAll("#historyTable tbody tr");
+
+rows.forEach(row=>{
+
+const txt=row.innerText.toLowerCase();
+
+row.style.display=txt.includes(filter)?"":"none";
+
+});
+
+});
+
+</script>
+
+{% endblock %}

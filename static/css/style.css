@@ -1,0 +1,1320 @@
+/* =====================================================
+   RestaurantIQ UI v2
+   Part 1 - Foundation
+   ===================================================== */
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* ---------- Theme ---------- */
+
+:root{
+
+    --bg:#14181d;
+    --surface:#1d232a;
+    --surface-light:#262d35;
+
+    --card:#20262d;
+
+    --primary:#f4b400;
+
+    --primary-hover:#ffc933;
+
+    --success:#2db66d;
+
+    --danger:#dc5d5d;
+
+    --warning:#ffb547;
+
+    --text:#eef3f7;
+
+    --text-muted:#9aa8b7;
+
+    --border:#303842;
+
+    --radius:18px;
+
+    --shadow:
+        0 15px 35px rgba(0,0,0,.30);
+
+}
+
+/* ---------- Reset ---------- */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    font-family:'Inter',sans-serif;
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+}
+
+/* ---------- Scrollbar ---------- */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#171c20;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#4b5563;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:var(--primary);
+
+}
+
+/* ---------- Typography ---------- */
+
+h1,h2,h3,h4,h5{
+
+    font-family:'Oswald',sans-serif;
+
+    letter-spacing:.5px;
+
+}
+
+.display-number{
+
+    font-family:'JetBrains Mono',monospace;
+
+}
+
+/* ---------- Navbar ---------- */
+
+.navbar{
+
+    background:#1a1f25 !important;
+
+    border-bottom:1px solid var(--border);
+
+    padding:16px 24px;
+
+}
+
+.navbar-brand{
+
+    font-size:1.4rem;
+
+    font-weight:700;
+
+    color:var(--primary)!important;
+
+    letter-spacing:.5px;
+
+}
+
+.nav-link{
+
+    color:var(--text-muted)!important;
+
+    margin-left:12px;
+
+    transition:.25s;
+
+    font-weight:500;
+
+}
+
+.nav-link:hover{
+
+    color:var(--primary)!important;
+
+}
+
+.nav-link.active{
+
+    color:var(--primary)!important;
+
+}
+
+/* ---------- Container ---------- */
+
+.container{
+
+    padding-top:35px;
+
+    padding-bottom:50px;
+
+}
+
+/* ---------- Glass Cards ---------- */
+
+.card{
+
+    background:var(--card);
+
+    border:none;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    overflow:hidden;
+
+    transition:.30s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-4px);
+
+}
+
+.card-header{
+
+    background:transparent;
+
+    color:var(--text);
+
+    border-bottom:1px solid var(--border);
+
+    font-weight:600;
+
+    font-size:1rem;
+
+    padding:18px 22px;
+
+}
+
+.card-body{
+
+    padding:24px;
+
+}
+
+/* ---------- KPI Cards ---------- */
+
+.stat-card{
+
+    background:linear-gradient(
+        145deg,
+        #20262d,
+        #252d35
+    );
+
+    border-radius:18px;
+
+    padding:26px;
+
+    text-align:center;
+
+    transition:.30s;
+
+    border:1px solid rgba(255,255,255,.05);
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-5px);
+
+    border-color:rgba(244,180,0,.35);
+
+}
+
+.stat-card .value{
+
+    font-size:2.4rem;
+
+    color:var(--primary);
+
+    font-weight:700;
+
+    font-family:'JetBrains Mono',monospace;
+
+}
+
+.stat-card .label{
+
+    margin-top:8px;
+
+    color:var(--text-muted);
+
+    text-transform:uppercase;
+
+    font-size:.78rem;
+
+    letter-spacing:1px;
+
+}
+
+/* ---------- Footer ---------- */
+
+footer{
+
+    color:var(--text-muted)!important;
+
+    border-top:1px solid var(--border);
+
+    margin-top:50px;
+
+    padding-top:25px;
+
+}
+
+/* ---------- Links ---------- */
+
+a{
+
+    color:var(--primary);
+
+    text-decoration:none;
+
+}
+
+a:hover{
+
+    color:var(--primary-hover);
+
+}
+/* =====================================================
+   RestaurantIQ UI v2
+   Part 2 - Forms, Buttons & Tables
+   ===================================================== */
+
+/* ---------- Buttons ---------- */
+
+.btn{
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    padding:12px 22px;
+
+    transition:all .25s ease;
+
+    border:none;
+
+    box-shadow:none;
+
+}
+
+.btn-primary{
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        #ffcc33
+    );
+
+    color:#111;
+
+}
+
+.btn-primary:hover{
+
+    background:linear-gradient(
+        135deg,
+        #ffd54d,
+        #ffb300
+    );
+
+    color:#111;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 12px 24px rgba(244,180,0,.35);
+
+}
+
+.btn-outline-secondary{
+
+    border:1px solid var(--border);
+
+    color:var(--text);
+
+    background:transparent;
+
+}
+
+.btn-outline-secondary:hover{
+
+    background:var(--surface-light);
+
+    color:white;
+
+}
+
+/* ---------- Forms ---------- */
+
+.form-label{
+
+    color:var(--text);
+
+    font-weight:600;
+
+    margin-bottom:8px;
+
+}
+
+.form-control,
+
+.form-select{
+
+    background:var(--surface);
+
+    border:1px solid var(--border);
+
+    color:var(--text);
+
+    border-radius:12px;
+
+    padding:12px 16px;
+
+    transition:.25s;
+
+}
+
+.form-control:focus,
+
+.form-select:focus{
+
+    background:var(--surface);
+
+    color:var(--text);
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 .2rem rgba(244,180,0,.15);
+
+}
+
+.form-control::placeholder{
+
+    color:var(--text-muted);
+
+}
+
+.form-select option{
+
+    background:#1b2127;
+
+    color:white;
+
+}
+
+.form-check-input{
+
+    width:20px;
+
+    height:20px;
+
+    cursor:pointer;
+
+}
+
+.form-check-input:checked{
+
+    background-color:var(--primary);
+
+    border-color:var(--primary);
+
+}
+
+.form-check-label{
+
+    margin-left:6px;
+
+    color:var(--text-muted);
+
+}
+
+/* ---------- Tables ---------- */
+
+.table{
+
+    color:var(--text);
+
+    margin-bottom:0;
+
+}
+
+.table thead{
+
+    background:#252d35;
+
+}
+
+.table thead th{
+
+    color:white;
+
+    border-bottom:1px solid var(--border);
+
+    padding:16px;
+
+    font-weight:600;
+
+    text-transform:uppercase;
+
+    font-size:.78rem;
+
+    letter-spacing:.6px;
+
+}
+
+.table tbody td{
+
+    border-color:rgba(255,255,255,.05);
+
+    padding:16px;
+
+    vertical-align:middle;
+
+}
+
+.table-hover tbody tr{
+
+    transition:.25s;
+
+}
+
+.table-hover tbody tr:hover{
+
+    background:#2a333c;
+
+}
+
+/* ---------- Badges ---------- */
+
+.badge{
+
+    border-radius:50px;
+
+    padding:8px 14px;
+
+    font-size:.72rem;
+
+    font-weight:700;
+
+    letter-spacing:.5px;
+
+}
+
+.badge-best{
+
+    background:var(--success);
+
+    color:white;
+
+}
+
+.badge-warning{
+
+    background:var(--warning);
+
+    color:#111;
+
+}
+
+.badge-danger{
+
+    background:var(--danger);
+
+    color:white;
+
+}
+
+/* ---------- Alerts ---------- */
+
+.alert{
+
+    border:none;
+
+    border-radius:14px;
+
+}
+
+.alert-success{
+
+    background:rgba(45,182,109,.15);
+
+    color:#8ef0b7;
+
+}
+
+.alert-danger{
+
+    background:rgba(220,93,93,.15);
+
+    color:#ffb2b2;
+
+}
+
+/* ---------- Inputs Layout ---------- */
+
+.row.g-3{
+
+    row-gap:1.2rem !important;
+
+}
+
+/* ---------- Card Titles ---------- */
+
+.card-header h5,
+
+.card-header h4{
+
+    margin:0;
+
+}
+
+/* ---------- Utility ---------- */
+
+.text-muted{
+
+    color:var(--text-muted)!important;
+
+}
+
+.text-success{
+
+    color:var(--success)!important;
+
+}
+
+.text-danger{
+
+    color:var(--danger)!important;
+
+}
+
+.shadow-soft{
+
+    box-shadow:var(--shadow);
+
+}
+
+.rounded-xl{
+
+    border-radius:20px;
+
+}
+/* =====================================================
+   RestaurantIQ UI v2
+   Part 3 - Dashboard, Charts & Kitchen Tickets
+   ===================================================== */
+
+/* ---------- Dashboard KPI ---------- */
+
+.kpi-card{
+
+    background:linear-gradient(145deg,#20262d,#2a323a);
+
+    border-radius:18px;
+
+    padding:24px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:.30s;
+
+    border:1px solid rgba(255,255,255,.05);
+
+}
+
+.kpi-card:hover{
+
+    transform:translateY(-6px);
+
+    border-color:rgba(244,180,0,.35);
+
+}
+
+.kpi-title{
+
+    color:var(--text-muted);
+
+    font-size:.82rem;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+}
+
+.kpi-value{
+
+    font-family:'JetBrains Mono',monospace;
+
+    font-size:2.2rem;
+
+    color:white;
+
+    margin-top:10px;
+
+    font-weight:700;
+
+}
+
+.kpi-icon{
+
+    position:absolute;
+
+    right:18px;
+
+    top:18px;
+
+    font-size:2rem;
+
+    opacity:.12;
+
+    color:var(--primary);
+
+}
+
+/* ---------- Chart Containers ---------- */
+
+.chart-card{
+
+    background:var(--card);
+
+    border-radius:18px;
+
+    padding:24px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.chart-title{
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    margin-bottom:18px;
+
+}
+
+canvas{
+
+    max-height:360px;
+
+}
+
+/* ---------- Kitchen Tickets ---------- */
+
+.ticket{
+
+    background:#f8f5ec;
+
+    color:#222;
+
+    border-radius:14px;
+
+    padding:22px;
+
+    margin-bottom:22px;
+
+    position:relative;
+
+    box-shadow:0 15px 30px rgba(0,0,0,.25);
+
+    transition:.3s;
+
+    border-left:8px solid var(--primary);
+
+}
+
+.ticket:hover{
+
+    transform:translateY(-4px);
+
+}
+
+.ticket::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    bottom:-8px;
+
+    height:16px;
+
+    background:
+        radial-gradient(circle at 8px 8px,#f8f5ec 8px,transparent 9px)
+        repeat-x;
+
+    background-size:24px 16px;
+
+}
+
+.ticket-number{
+
+    font-size:.78rem;
+
+    color:#777;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+}
+
+.ticket-item{
+
+    font-family:'Oswald',sans-serif;
+
+    font-size:1.8rem;
+
+    margin-top:6px;
+
+    margin-bottom:16px;
+
+}
+
+.ticket-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:16px;
+
+}
+
+.ticket-box{
+
+    background:#ece7da;
+
+    padding:14px;
+
+    border-radius:10px;
+
+}
+
+.ticket-label{
+
+    font-size:.72rem;
+
+    text-transform:uppercase;
+
+    color:#777;
+
+}
+
+.ticket-value{
+
+    font-size:1.3rem;
+
+    font-family:'JetBrains Mono',monospace;
+
+    margin-top:6px;
+
+    font-weight:700;
+
+}
+
+.priority-high{
+
+    background:#ff4f4f;
+
+    color:white;
+
+    display:inline-block;
+
+    padding:6px 14px;
+
+    border-radius:30px;
+
+    margin-top:18px;
+
+    font-size:.75rem;
+
+    font-weight:700;
+
+}
+
+.priority-medium{
+
+    background:#ffb300;
+
+    color:#222;
+
+    display:inline-block;
+
+    padding:6px 14px;
+
+    border-radius:30px;
+
+    margin-top:18px;
+
+    font-size:.75rem;
+
+    font-weight:700;
+
+}
+
+.priority-low{
+
+    background:#2db66d;
+
+    color:white;
+
+    display:inline-block;
+
+    padding:6px 14px;
+
+    border-radius:30px;
+
+    margin-top:18px;
+
+    font-size:.75rem;
+
+    font-weight:700;
+
+}
+
+/* ---------- Analytics Cards ---------- */
+
+.analytics-card{
+
+    background:var(--card);
+
+    border-radius:18px;
+
+    padding:22px;
+
+    text-align:center;
+
+}
+
+.analytics-value{
+
+    font-family:'JetBrains Mono',monospace;
+
+    font-size:2rem;
+
+    color:var(--primary);
+
+    margin-top:8px;
+
+}
+
+/* ---------- Model Winner ---------- */
+
+.model-best{
+
+    background:linear-gradient(135deg,#2db66d,#1f9b5d);
+
+    color:white;
+
+    border-radius:18px;
+
+    padding:26px;
+
+}
+
+.model-best h3{
+
+    margin-bottom:12px;
+
+}
+
+.model-best .score{
+
+    font-family:'JetBrains Mono';
+
+    font-size:2rem;
+
+}
+
+/* ---------- Prediction Cards ---------- */
+
+.prediction-card{
+
+    background:linear-gradient(145deg,#20262d,#2c353d);
+
+    padding:22px;
+
+    border-radius:18px;
+
+    text-align:center;
+
+}
+
+.prediction-card h2{
+
+    font-family:'JetBrains Mono';
+
+    color:var(--primary);
+
+    margin:12px 0;
+
+}
+
+/* ---------- History ---------- */
+
+.table-responsive{
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+}
+
+/* ---------- Card Hover ---------- */
+
+.card,
+.ticket,
+.kpi-card,
+.analytics-card{
+
+    transition:all .30s ease;
+
+}
+
+.card:hover,
+.analytics-card:hover{
+
+    transform:translateY(-4px);
+
+}
+/* =====================================================
+   RestaurantIQ UI v2
+   Part 4 - Animations, Responsive & Final Polish
+   ===================================================== */
+
+/* ---------- Fade Animation ---------- */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes pulseGlow{
+
+    0%{
+
+        box-shadow:0 0 0 rgba(244,180,0,0);
+
+    }
+
+    50%{
+
+        box-shadow:0 0 25px rgba(244,180,0,.25);
+
+    }
+
+    100%{
+
+        box-shadow:0 0 0 rgba(244,180,0,0);
+
+    }
+
+}
+
+body{
+
+    animation:fadeUp .5s ease;
+
+}
+
+.card,
+.kpi-card,
+.ticket,
+.analytics-card,
+.stat-card{
+
+    animation:fadeUp .5s ease;
+
+}
+
+/* ---------- Loading Overlay ---------- */
+
+.loading-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(20,24,29,.92);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:9999;
+
+}
+
+.spinner{
+
+    width:70px;
+
+    height:70px;
+
+    border:6px solid rgba(255,255,255,.08);
+
+    border-top-color:var(--primary);
+
+    border-radius:50%;
+
+    animation:spin 1s linear infinite;
+
+}
+
+@keyframes spin{
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+/* ---------- Utility ---------- */
+
+.text-gold{
+
+    color:var(--primary);
+
+}
+
+.bg-card{
+
+    background:var(--card);
+
+}
+
+.border-soft{
+
+    border:1px solid rgba(255,255,255,.05);
+
+}
+
+.radius-xl{
+
+    border-radius:22px;
+
+}
+
+.mt-xl{
+
+    margin-top:50px;
+
+}
+
+.mb-xl{
+
+    margin-bottom:50px;
+
+}
+
+/* ---------- Images ---------- */
+
+img{
+
+    max-width:100%;
+
+}
+
+/* ---------- Table ---------- */
+
+.table td{
+
+    transition:.25s;
+
+}
+
+.table tbody tr:hover td{
+
+    color:white;
+
+}
+
+/* ---------- Footer ---------- */
+
+footer{
+
+    font-size:.9rem;
+
+    letter-spacing:.3px;
+
+}
+
+/* ---------- Responsive ---------- */
+
+@media(max-width:1200px){
+
+    .kpi-value{
+
+        font-size:1.8rem;
+
+    }
+
+}
+
+@media(max-width:992px){
+
+    .navbar-brand{
+
+        font-size:1.2rem;
+
+    }
+
+    .ticket-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .container{
+
+        padding-top:20px;
+
+    }
+
+    .card-body{
+
+        padding:18px;
+
+    }
+
+    .stat-card{
+
+        margin-bottom:18px;
+
+    }
+
+    .kpi-value{
+
+        font-size:1.5rem;
+
+    }
+
+    .ticket-item{
+
+        font-size:1.4rem;
+
+    }
+
+}
+
+@media(max-width:576px){
+
+    .btn{
+
+        width:100%;
+
+    }
+
+    .navbar{
+
+        padding:12px;
+
+    }
+
+    .card-header{
+
+        font-size:.9rem;
+
+    }
+
+}
+
+/* ---------- Hover Effects ---------- */
+
+.btn:hover{
+
+    transition:.25s;
+
+}
+
+.card:hover{
+
+    animation:pulseGlow 1s;
+
+}
+
+.ticket:hover{
+
+    box-shadow:0 18px 40px rgba(0,0,0,.35);
+
+}
+
+/* ---------- Charts ---------- */
+
+canvas{
+
+    animation:fadeUp .8s ease;
+
+}
+
+/* ---------- Selection ---------- */
+
+::selection{
+
+    background:var(--primary);
+
+    color:#111;
+
+}

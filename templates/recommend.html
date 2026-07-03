@@ -1,0 +1,298 @@
+{% extends "base.html" %}
+{% block title %}Inventory Recommendations{% endblock %}
+
+{% block content %}
+
+<div class="mb-5">
+
+    <h1 class="mb-2">
+
+        Kitchen Preparation Center
+
+    </h1>
+
+    <p class="text-muted">
+
+        Generate AI-powered inventory recommendations for tomorrow's restaurant operations.
+
+    </p>
+
+</div>
+
+<div class="card mb-4">
+
+<div class="card-header">
+
+<i class="bi bi-box-seam"></i>
+
+Inventory Forecast
+
+</div>
+
+<div class="card-body">
+
+<form method="POST"
+action="{{ url_for('recommend') }}">
+
+<div class="row g-4">
+
+<div class="col-md-3">
+
+<label class="form-label">
+
+Date
+
+</label>
+
+<input
+type="date"
+name="date"
+class="form-control"
+required>
+
+</div>
+
+<div class="col-md-3">
+
+<label class="form-label">
+
+Restaurant
+
+</label>
+
+<select
+name="restaurant_id"
+class="form-select"
+required>
+
+{% for r in restaurants %}
+
+<option value="{{ r }}"
+{% if selected_restaurant==r %}
+selected
+{% endif %}>
+
+Restaurant #{{ r }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="col-md-3">
+
+<label class="form-label">
+
+Weather
+
+</label>
+
+<select
+name="weather_condition"
+class="form-select">
+
+{% for w in weather_options %}
+
+<option value="{{ w }}">
+
+{{ w }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="mt-4">
+
+<div class="form-check">
+
+<input
+class="form-check-input"
+type="checkbox"
+name="has_promotion">
+
+<label class="form-check-label">
+
+Promotion
+
+</label>
+
+</div>
+
+<div class="form-check mt-2">
+
+<input
+class="form-check-input"
+type="checkbox"
+name="special_event">
+
+<label class="form-check-label">
+
+Special Event
+
+</label>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="text-end mt-4">
+
+<button
+class="btn btn-primary btn-lg">
+
+<i class="bi bi-stars"></i>
+
+Generate Recommendations
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+{% if recommendations %}
+
+<div class="row">
+
+{% for r in recommendations %}
+
+<div class="col-lg-4 mb-4">
+
+<div class="ticket">
+
+<div class="ticket-number">
+
+Kitchen Ticket #{{ loop.index }}
+
+</div>
+
+<div class="ticket-item">
+
+{{ r.item }}
+
+</div>
+
+<div class="ticket-grid">
+
+<div class="ticket-box">
+
+<div class="ticket-label">
+
+Meal Type
+
+</div>
+
+<div class="ticket-value">
+
+{{ r.meal_type }}
+
+</div>
+
+</div>
+
+<div class="ticket-box">
+
+<div class="ticket-label">
+
+Forecast
+
+</div>
+
+<div class="ticket-value">
+
+{{ r.predicted_quantity }}
+
+</div>
+
+</div>
+
+<div class="ticket-box">
+
+<div class="ticket-label">
+
+Prepare
+
+</div>
+
+<div class="ticket-value">
+
+{{ r.predicted_quantity|round(0,'ceil')|int }}
+
+Units
+
+</div>
+
+</div>
+
+<div class="ticket-box">
+
+<div class="ticket-label">
+
+Model
+
+</div>
+
+<div class="ticket-value">
+
+{{ best_model }}
+
+</div>
+
+</div>
+
+</div>
+
+{% if r.predicted_quantity>120 %}
+
+<div class="priority-high">
+
+HIGH PRIORITY
+
+</div>
+
+{% elif r.predicted_quantity>70 %}
+
+<div class="priority-medium">
+
+MEDIUM PRIORITY
+
+</div>
+
+{% else %}
+
+<div class="priority-low">
+
+LOW PRIORITY
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endif %}
+
+{% endblock %}

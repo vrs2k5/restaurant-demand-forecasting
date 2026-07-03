@@ -1,0 +1,405 @@
+{% extends "base.html" %}
+{% block title %}Demand Forecast{% endblock %}
+
+{% block content %}
+
+<div class="row align-items-center mb-5">
+
+    <div class="col-lg-7">
+
+        <h1 class="display-5 fw-bold mb-3">
+            AI Restaurant Demand Forecasting
+        </h1>
+
+        <p class="text-muted fs-5">
+
+            Predict customer demand, estimate inventory requirements,
+            and optimize restaurant operations using Machine Learning.
+
+        </p>
+
+    </div>
+
+    <div class="col-lg-5 text-lg-end">
+
+        <div class="analytics-card">
+
+            <h6 class="text-muted">
+
+                System Status
+
+            </h6>
+
+            <div class="analytics-value">
+
+                ONLINE
+
+            </div>
+
+            <small class="text-success">
+
+                ● Models Loaded Successfully
+
+            </small>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+<div class="card-header">
+
+<i class="bi bi-magic"></i>
+
+Demand Forecast Input
+
+</div>
+
+<div class="card-body">
+
+<form method="POST"
+
+action="{{ url_for('predict') }}"
+
+id="predictForm">
+
+<div class="row g-4">
+
+<div class="col-md-4">
+
+<label class="form-label">
+
+Prediction Date
+
+</label>
+
+<input
+
+type="date"
+
+name="date"
+
+class="form-control"
+
+required>
+
+</div>
+
+<div class="col-md-4">
+
+<label class="form-label">
+
+Restaurant
+
+</label>
+
+<select
+
+name="restaurant_id"
+
+id="restaurantSelect"
+
+class="form-select"
+
+required>
+
+{% for r in restaurants %}
+
+<option value="{{ r }}">
+
+Restaurant #{{ r }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="col-md-4">
+
+<label class="form-label">
+
+Menu Item
+
+</label>
+
+<select
+
+name="item"
+
+id="itemSelect"
+
+class="form-select"
+
+required>
+
+</select>
+
+</div>
+
+<div class="col-md-4">
+
+<label class="form-label">
+
+Meal Type
+
+</label>
+
+<select
+
+name="meal_type"
+
+class="form-select"
+
+required>
+
+{% for m in meal_types %}
+
+<option value="{{ m }}">
+
+{{ m }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="col-md-4">
+
+<label class="form-label">
+
+Weather
+
+</label>
+
+<select
+
+name="weather_condition"
+
+class="form-select"
+
+required>
+
+{% for w in weather_options %}
+
+<option value="{{ w }}">
+
+{{ w }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="col-md-4 d-flex align-items-center">
+
+<div class="mt-4">
+
+<div class="form-check mb-3">
+
+<input
+
+class="form-check-input"
+
+type="checkbox"
+
+name="has_promotion"
+
+id="promo">
+
+<label
+
+class="form-check-label"
+
+for="promo">
+
+Promotion Running
+
+</label>
+
+</div>
+
+<div class="form-check">
+
+<input
+
+class="form-check-input"
+
+type="checkbox"
+
+name="special_event"
+
+id="event">
+
+<label
+
+class="form-check-label"
+
+for="event">
+
+Special Event
+
+</label>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<hr class="my-4">
+
+<div class="row align-items-center">
+
+<div class="col-md-8">
+
+<p class="text-muted mb-0">
+
+The prediction will compare
+
+Linear Regression,
+
+Random Forest,
+
+XGBoost,
+
+and LightGBM
+
+to estimate future demand.
+
+</p>
+
+</div>
+
+<div class="col-md-4 text-end">
+
+<button
+
+class="btn btn-primary btn-lg"
+
+type="submit">
+
+<i class="bi bi-stars"></i>
+
+Forecast Demand
+
+</button>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<div class="row mt-5">
+
+<div class="col-lg-4">
+
+<div class="analytics-card">
+
+<h6>
+
+⚡ Fast Prediction
+
+</h6>
+
+<p class="text-muted">
+
+Generate demand forecasts
+
+within seconds.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="analytics-card">
+
+<h6>
+
+📦 Inventory Planning
+
+</h6>
+
+<p class="text-muted">
+
+Automatically estimate
+
+required inventory.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="analytics-card">
+
+<h6>
+
+📊 Business Intelligence
+
+</h6>
+
+<p class="text-muted">
+
+Visualize demand,
+
+weather,
+
+and promotion impact.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const restaurantItemMap={{ restaurant_item_map|tojson }};
+
+const restaurantSelect=document.getElementById("restaurantSelect");
+
+const itemSelect=document.getElementById("itemSelect");
+
+function populateItems(){
+
+const items=restaurantItemMap[restaurantSelect.value]||[];
+
+itemSelect.innerHTML=items.map(item=>`<option value="${item}">${item}</option>`).join("");
+
+}
+
+restaurantSelect.addEventListener("change",populateItems);
+
+populateItems();
+
+</script>
+
+{% endblock %}

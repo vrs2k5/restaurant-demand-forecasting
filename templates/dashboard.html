@@ -1,0 +1,342 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+
+    <h1 class="mb-2">
+        Restaurant Operations Dashboard
+    </h1>
+
+    <p class="text-muted">
+        Monitor demand forecasting, restaurant performance and operational insights.
+    </p>
+
+</div>
+
+<div class="row g-4">
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="kpi-card">
+
+            <div class="kpi-title">
+                Historical Records
+            </div>
+
+            <div class="kpi-value">
+                {{ total_records }}
+            </div>
+
+            <div class="text-success mt-2">
+                <i class="bi bi-database"></i>
+                Dataset Loaded
+            </div>
+
+            <i class="bi bi-database-fill kpi-icon"></i>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="kpi-card">
+
+            <div class="kpi-title">
+                Restaurants
+            </div>
+
+            <div class="kpi-value">
+                {{ total_restaurants }}
+            </div>
+
+            <div class="text-success mt-2">
+                <i class="bi bi-shop"></i>
+                Active
+            </div>
+
+            <i class="bi bi-shop-window kpi-icon"></i>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="kpi-card">
+
+            <div class="kpi-title">
+                Menu Items
+            </div>
+
+            <div class="kpi-value">
+                {{ total_items }}
+            </div>
+
+            <div class="text-success mt-2">
+
+                <i class="bi bi-cup-hot"></i>
+
+                Available
+
+            </div>
+
+            <i class="bi bi-cup-hot-fill kpi-icon"></i>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="kpi-card">
+
+            <div class="kpi-title">
+                Average Demand
+            </div>
+
+            <div class="kpi-value">
+
+                {{ avg_quantity }}
+
+            </div>
+
+            <div class="text-warning mt-2">
+
+                Units / Order
+
+            </div>
+
+            <i class="bi bi-graph-up-arrow kpi-icon"></i>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="row mt-4 g-4">
+
+    <div class="col-lg-8">
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <i class="bi bi-calendar-range"></i>
+
+                Dataset Overview
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="row text-center">
+
+                    <div class="col-md-6">
+
+                        <h5 class="text-muted">
+
+                            Start Date
+
+                        </h5>
+
+                        <h3 class="display-number">
+
+                            {{ date_min }}
+
+                        </h3>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <h5 class="text-muted">
+
+                            End Date
+
+                        </h5>
+
+                        <h3 class="display-number">
+
+                            {{ date_max }}
+
+                        </h3>
+
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <p class="text-muted mb-0">
+
+                    This application forecasts restaurant demand using Machine Learning
+                    models trained on historical restaurant sales data. Inventory
+                    recommendations are generated automatically based on predicted demand.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-4">
+
+        <div class="model-best">
+
+            <h3>
+
+                AI Insights
+
+            </h3>
+
+            <ul class="mb-0">
+
+                <li class="mb-3">
+
+                    Historical records available for demand forecasting.
+
+                </li>
+
+                <li class="mb-3">
+
+                    Average demand is
+
+                    <strong>
+
+                        {{ avg_quantity }}
+
+                    </strong>
+
+                    units.
+
+                </li>
+
+                <li class="mb-3">
+
+                    Predictions generated
+
+                    <strong>
+
+                        {{ total_predictions }}
+
+                    </strong>
+
+                    times.
+
+                </li>
+
+                <li>
+
+                    Ready for next-day inventory planning.
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card mt-4">
+
+    <div class="card-header">
+
+        <i class="bi bi-clock-history"></i>
+
+        Recent Forecast Requests
+
+    </div>
+
+    <div class="card-body">
+
+        {% if latest %}
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Date</th>
+
+                        <th>Restaurant</th>
+
+                        <th>Menu Item</th>
+
+                        <th>Forecast</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for p in latest %}
+
+                    <tr>
+
+                        <td>
+
+                            {{ p.date }}
+
+                        </td>
+
+                        <td>
+
+                            #{{ p.restaurant_id }}
+
+                        </td>
+
+                        <td>
+
+                            {{ p.menu_item_name }}
+
+                        </td>
+
+                        <td>
+
+                            <span class="badge badge-best">
+
+                                {{ p.lightgbm_prediction }}
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-success">
+
+            No predictions available yet.
+
+            Start by creating your first demand forecast.
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
