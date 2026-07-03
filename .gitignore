@@ -9,8 +9,6 @@ env/
 
 *.log
 
-database/*.db
-
 .idea/
 .vscode/
 
