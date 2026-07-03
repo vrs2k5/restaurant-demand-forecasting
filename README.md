@@ -1,117 +1,278 @@
-# Restaurant Order Demand Forecasting
+# 🍽️ RestaurantIQ
 
-A Flask web application that predicts daily menu-item demand for restaurants using
-multiple machine learning models, and turns those predictions into a next-day
-inventory prep list ("prepare ~X units of Y tomorrow").
+<div align="center">
 
-## Overview
+### AI-Powered Restaurant Demand Forecasting & Inventory Recommendation System
 
-Restaurants and cloud kitchens routinely over- or under-prepare ingredients because
-demand depends on weather, promotions, day of week, and events in ways that are hard
-to eyeball. This project builds a demand forecasting pipeline that compares four
-regression models and serves the best one through a REST API and dashboard.
+Predict restaurant demand using Machine Learning and optimize inventory planning with intelligent recommendations.
 
-**A note on the data:** this project uses a *synthetic* dataset simulating 50
-fictional Southeast Asian restaurants (Jan 2024 – Jan 2025, 14 menu items, weather /
-promotion / event flags). It is not scraped real-world operational data, and that is
-stated here deliberately rather than implied otherwise. The modeling methodology
-below is built to be sound regardless of the data source.
+[![Live Demo](https://img.shields.io/badge/🚀-Live%20Demo-success?style=for-the-badge)](https://restaurant-demand-forecasting-vh4q.onrender.com/)
+![Python](https://img.shields.io/badge/Python-3.13-blue?style=for-the-badge&logo=python)
+![Flask](https://img.shields.io/badge/Flask-Web%20Framework-black?style=for-the-badge&logo=flask)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Machine%20Learning-orange?style=for-the-badge&logo=scikitlearn)
+![SQLite](https://img.shields.io/badge/SQLite-Database-blue?style=for-the-badge&logo=sqlite)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-UI-purple?style=for-the-badge&logo=bootstrap)
 
-## Key Features
+</div>
 
-- **4 regression models compared honestly**: Linear Regression, Random Forest,
-  XGBoost, and LightGBM, evaluated on a **chronological** train/test split (last 20%
-  of dates held out) — never a random split, which would leak future information into
-  training for a time-series problem.
-- **Sequence-based lag features**: `lag_1`, `lag_2`, and a 3-observation rolling mean
-  per (restaurant, menu item). The dataset is sparse (~36 records per
-  restaurant-item pair spread irregularly across a year), so a calendar "yesterday"
-  lag isn't meaningful here — lags are built from the previous *recorded*
-  transactions instead, and this trade-off is documented rather than hidden.
-- **Feature importance** from the best-performing tree model.
-- **Inventory recommendation engine**: given a restaurant + date + weather, predicts
-  demand for every item on that restaurant's menu and ranks them into a prep list.
-- **Dashboard & analytics**: monthly trends, top items, weather impact, promotion
-  effect — all backed by Chart.js.
-- **Prediction history** stored in SQLite via SQLAlchemy.
-- **REST API** for predictions, recommendations, dataset stats, and history.
+---
 
-## Tech Stack
+# 🌐 Live Demo
 
-Python &middot; Flask &middot; SQLite &middot; Pandas &middot; NumPy &middot;
-scikit-learn &middot; XGBoost &middot; LightGBM &middot; Chart.js &middot; Bootstrap 5
+🚀 **Try the application here**
 
-## Model Results
+### https://restaurant-demand-forecasting-vh4q.onrender.com/
 
-Evaluated on the held-out chronological test set (most recent 20% of dates):
+> **Note:** The application is hosted on Render's free plan. If inactive, it may take **30–60 seconds** to wake up.
 
-| Model            | R²     | MAE   | RMSE   |
-|------------------|--------|-------|--------|
-| Linear Regression| 0.629  | 100.6 | 147.7  |
-| Random Forest    | 0.712  | 87.9  | 130.1  |
-| XGBoost          | 0.731  | 83.3  | 125.7  |
-| **LightGBM**     | **0.733** | **83.3** | **125.2** |
+---
 
-LightGBM is selected as the model used for inventory recommendations. Exact numbers
-will vary slightly on retraining since Random Forest/XGBoost/LightGBM have inherent
-randomness even with a fixed seed across library versions.
+# 📖 Project Overview
 
-## Project Structure
+RestaurantIQ is a Machine Learning-based web application that predicts restaurant demand and provides inventory recommendations to help restaurant owners optimize stock planning, reduce food wastage, and improve operational efficiency.
 
+The application compares multiple Machine Learning algorithms and presents the best-performing model through an interactive dashboard.
+
+---
+
+# ✨ Features
+
+- 📈 Restaurant Demand Forecasting
+- 🍽 Smart Inventory Recommendation
+- 🤖 Multiple Machine Learning Models
+- 📊 Interactive Dashboard
+- 📉 Sales Analytics
+- 📚 Prediction History
+- 💾 SQLite Database Integration
+- 🌐 Live Web Application
+- 📱 Responsive Bootstrap UI
+
+---
+
+# 🧠 Machine Learning Models
+
+The project compares multiple regression algorithms:
+
+- Linear Regression
+- Random Forest Regression
+- XGBoost Regressor
+- LightGBM Regressor
+
+The system evaluates these models and uses the best-performing model for prediction.
+
+---
+
+# 🛠️ Technology Stack
+
+## Backend
+
+- Python
+- Flask
+- SQLAlchemy
+
+## Machine Learning
+
+- Scikit-Learn
+- XGBoost
+- LightGBM
+- Pandas
+- NumPy
+- Joblib
+
+## Frontend
+
+- HTML5
+- CSS3
+- Bootstrap 5
+- JavaScript
+
+## Database
+
+- SQLite
+
+## Deployment
+
+- Render
+
+---
+
+# 📷 Application Screenshots
+
+## 🏠 Home Page
+
+![Home](screenshots/home.png)
+
+---
+
+## 📈 Prediction
+
+![Prediction](screenshots/prediction.png)
+
+---
+
+## 🍽 Inventory Recommendation
+
+![Recommendation](screenshots/recommendation.png)
+
+---
+
+## 📊 Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+---
+
+## 📉 Analytics
+
+![Analytics](screenshots/analytics.png)
+
+---
+
+## 📚 Prediction History
+
+![History](screenshots/history.png)
+
+---
+
+# ⚙️ System Workflow
+
+```text
+                User
+                  │
+                  ▼
+        Flask Web Application
+                  │
+                  ▼
+         Feature Engineering
+                  │
+                  ▼
+      Machine Learning Models
+       ├── Linear Regression
+       ├── Random Forest
+       ├── XGBoost
+       └── LightGBM
+                  │
+                  ▼
+         Demand Prediction
+                  │
+                  ▼
+    Inventory Recommendation
+                  │
+                  ▼
+      Dashboard & Analytics
 ```
-restaurant_demand_forecasting/
-├── app.py              # Flask routes
-├── model.py             # Feature engineering + multi-model training + inference
-├── models.py             # SQLAlchemy Prediction table
-├── config.py              # Flask config
+
+---
+
+# 📂 Project Structure
+
+```text
+RestaurantIQ
+│
 ├── dataset/
-│   └── restaurant_sales_data.csv
-├── saved_models/          # Trained models, scaler, metadata (generated by model.py)
-├── templates/              # Jinja2 templates (Bootstrap 5)
-├── static/css/style.css
-└── requirements.txt
+├── database/
+├── saved_models/
+├── screenshots/
+├── static/
+├── templates/
+│
+├── app.py
+├── config.py
+├── model.py
+├── models.py
+├── Procfile
+├── requirements.txt
+└── README.md
 ```
 
-## Installation
+---
+
+# 🚀 Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/vrs2k5/restaurant-demand-forecasting.git
+```
+
+Move into the project
+
+```bash
+cd restaurant-demand-forecasting
+```
+
+Create a virtual environment
+
+```bash
+python -m venv venv
+```
+
+### Windows
+
+```bash
+venv\Scripts\activate
+```
+
+### Linux / macOS
+
+```bash
+source venv/bin/activate
+```
+
+Install dependencies
 
 ```bash
 pip install -r requirements.txt
+```
 
-# Train the models (only needed once, or after changing the dataset/features)
-python model.py
+Run the application
 
-# Run the app
+```bash
 python app.py
 ```
 
-Then open `http://127.0.0.1:5000`.
+Open your browser and visit:
 
-## API Reference
-
-| Endpoint                          | Method | Description                                  |
-|------------------------------------|--------|-----------------------------------------------|
-| `/api/predict`                     | POST   | Predict demand for one item, all 4 models     |
-| `/api/recommend/<restaurant_id>`   | GET    | Ranked prep list for a restaurant             |
-| `/api/dataset`                     | GET    | Dataset summary stats                          |
-| `/api/metrics`                     | GET    | Model comparison metrics                       |
-| `/api/history`                     | GET    | Recent predictions                              |
-| `/health`                          | GET    | Health check                                    |
-
-Example:
-```bash
-curl -X POST http://127.0.0.1:5000/api/predict \
-  -H "Content-Type: application/json" \
-  -d '{"date":"2025-02-01","restaurant_id":1,"item":"Beef Rendang","meal_type":"Dinner","weather_condition":"Sunny"}'
+```text
+http://127.0.0.1:5000
 ```
 
-## Screenshots
+---
 
-(Add screenshots here after running the app locally: Predict, Recommendations, Dashboard, Analytics, Model Metrics)
+# 🚀 Future Enhancements
 
-## Future Improvements
+- PostgreSQL Integration
+- User Authentication & Authorization
+- Docker Support
+- CI/CD with GitHub Actions
+- Real-time Demand Forecasting
+- Cloud Storage Integration
+- REST API Documentation
+- Mobile Application
 
-- Authentication for multi-restaurant-owner use
-- Cloud deployment (Render/Railway)
-- Docker containerization
-- CI/CD pipeline
-- Swap SQLite for Postgres for persistent history on ephemeral hosting
+---
+
+# 👨‍💻 Developer
+
+### **Venkata Ramana Sai Nimmakanti**
+
+- **GitHub:** https://github.com/vrs2k5
+- **LinkedIn:** *(https://www.linkedin.com/in/venkata-ramana-sai-nimmakanti-450718298/)*
+
+---
+
+# ⭐ Support
+
+If you found this project useful, please consider giving it a ⭐ on GitHub.
+
+Your support helps improve the project and motivates future development.
+
+---
+
+<div align="center">
+
+### 🍽️ RestaurantIQ
+
+**Built with ❤️ using Python, Flask & Machine Learning**
+
+</div>
