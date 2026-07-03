@@ -6,8 +6,15 @@ from config import Config
 from models import db, Prediction
 from model import DemandForecaster
 
+import os
+
 app = Flask(__name__)
 app.config.from_object(Config)
+
+# Ensure database directory exists
+db_path = os.path.join(app.root_path, "database")
+os.makedirs(db_path, exist_ok=True)
+
 db.init_app(app)
 
 with app.app_context():
